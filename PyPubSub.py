@@ -32,6 +32,6 @@ if __name__ == '__main__':
     ps.emit('Something you are not prepared for', ['with arguments'])
 
 
-    # 12 / 14/ 2012: prints:
+    # 12/14/2012: prints:
     # <__main__.PubSub object at 0x09749D30> was told to say hello.
     # <__main__.PubSub object at 0x09749D30> was told to say nothing.
