@@ -8,10 +8,10 @@ class PubSub(object):
 
         self.handlers[event].append(fun)
 
-    def emit(self, event, *args):
+    def emit(self, event, args=[]):
         if event in self.handlers:
             for fun in self.handlers[event]:
-                fun(self, *args)
+                fun(self, event, args)
 
 
 if __name__ == '__main__':
@@ -19,9 +19,14 @@ if __name__ == '__main__':
 
     # In Python 2.x, print is a statement.
     # Lambda's need expressions, so I wrapped the print statement in a function.
-    def printAsFunction(x):
-        print 'I was told to say', ''.join([x, '.'])
+    def printAsFunction(emitter, event, args):
+        print emitter, 'was told to', event, ''.join([' '.join(args), '.'])
         
-    ps.on('Say', lambda x, args: printAsFunction(args))
+    ps.on('say', lambda emitter, event, args: printAsFunction(emitter, event, args or ["nothing"]))
 
-    ps.emit('Say', 'Hello')
+    ps.emit('say', ['hello'])
+
+    ps.emit('say') # no args
+    
+    ps.emit('Something you are not prepared for')
+    ps.emit('Something you are not prepared for', ['with arguments'])
