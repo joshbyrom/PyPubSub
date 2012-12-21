@@ -44,23 +44,23 @@ class PubSub(object):
                 wrapper.call(self, event, *args)
             self.handlers[event] = [x for x in self.handlers[event] if not x.finished]
 
-    class FunctionWrapper(object):
-        """ An inner class used by the PubSub class to
-            wrap subscriber functions, and limit their use."""
-        def __init__(self, fun, infinite, repeats):
-            self.fun = fun
-            self.infinite = infinite
-            self.repeats = repeats
-            self.count = 0
+class FunctionWrapper(object):
+    """ An inner class used by the PubSub class to
+        wrap subscriber functions, and limit their use."""
+    def __init__(self, fun, infinite, repeats):
+        self.fun = fun
+        self.infinite = infinite
+        self.repeats = repeats
+        self.count = 0
 
-            self.finished = False
+        self.finished = False
 
-        def call(self, emitter, event, *args):
-            self.fun(emitter, event, args)
+    def call(self, emitter, event, *args):
+        self.fun(emitter, event, args)
 
-            self.count = self.count + 1
-            if not self.infinite and self.count > self.repeats:
-                self.finished = True
+        self.count = self.count + 1
+        if not self.infinite and self.count > self.repeats:
+            self.finished = True
             
 
 
