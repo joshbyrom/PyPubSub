@@ -73,7 +73,7 @@ if __name__ == '__main__':
         print emitter, 'was told to', event, ''.join([' '.join(args), '.'])
         
     ps.once('say', lambda emitter, event, args: printAsFunction(emitter, event, args or ["nothing"]))
-
+    
     ps.emit('say', ['hello'])
     ps.emit('say', ['hello'])
 
